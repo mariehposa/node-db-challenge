@@ -28,9 +28,21 @@ function getProject () {
 }
 
 function getProjectId (id) {
-    return db('project as p')
+    let q = db('project as p')
     .where('p.id', id)
     .first()
+
+    const promises = [q, getProjectTasks(id)]
+
+    return Promise.all(promises)
+    .then(function(results){
+        let [project, tasks] = results;
+
+        return {
+            ...project,
+            tasks
+        }
+    })
 }
 
 function addProject(newProject) {
@@ -54,6 +66,11 @@ function getTaskId (id) {
     return db('task as t')
     .where('t.id', id)
     .first()
+}
+
+function getProjectTasks (proj_id) {
+    return db ('task as t')
+    .where('t.project_id', proj_id)
 }
 
 function addTask (newTask) {
@@ -81,5 +98,6 @@ module.exports = {
     getTask,
     getTaskId,
     addTask,
-    removeTask
+    removeTask,
+    getProjectTasks
 }
