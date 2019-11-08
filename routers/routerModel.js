@@ -34,12 +34,25 @@ function getTask () {
     return db('task')
 }
 
+function getTaskId (id) {
+    return db('task as t')
+    .where('t.id', id)
+}
+
+function addTask (newTask) {
+    return db('task')
+    .insert(newTask)
+    .then(([id]) => this.getTaskId(id))
+}
+
 module.exports = {
     getResource,
-    getById,
+    getResourceId,
     addResource,
     getProject,
+    getProjectId,
     addProject,
     getTask,
-
+    getTaskId,
+    addTask,
 }
