@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(404).json({
-            message: "Couldn't fetch resource" + err.message
+            message: "Couldn't fetch resources" + err.message
         })
     })
 })
@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         res.status(201).json(resource)
     })
     .catch (err => {
-        res.status(500).json({ message: 'Failed to create new resource' });
+        res.status(500).json({ message: 'Failed to create new resource' + err.message });
     });
 })
 

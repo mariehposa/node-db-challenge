@@ -9,9 +9,21 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(404).json({
-            message: "Couldn't fetch" + err.message
+            message: "Couldn't fetch projects" + err.message
         })
     })
+})
+
+router.post('/', (req, res) => {
+    const newData = req.body;
+
+    db.addProject(newData)
+    .then(newProject => {
+        res.status(201).json(newProject)
+    })
+    .catch (err => {
+        res.status(500).json({ message: 'Failed to create new resource' + err.message });
+    });
 })
 
 module.exports = router;
