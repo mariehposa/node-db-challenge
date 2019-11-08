@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    const { id } = req.params.id
+    const { id } = req.params
 
     db.getResourceId(id)
     .then(resource => {
@@ -47,5 +47,21 @@ router.post('/', (req, res) => {
         res.status(500).json({ message: 'Failed to create new resource' + err.message });
     });
 })
+
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+  
+    db.removeResource(id)
+    .then(deleted => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res.status(404).json({ message: 'Could not find resource with given id' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Failed to delete resource' });
+    });
+});
 
 module.exports = router;

@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    const { id } = req.params.id
+    const { id } = req.params
 
     db.getTaskId(id)
     .then(task => {
@@ -47,5 +47,21 @@ router.post('/', (req, res) => {
         res.status(500).json({ message: 'Failed to create new task' + err.message });
     });
 })
+
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+  
+    db.removeTask(id)
+    .then(deleted => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res.status(404).json({ message: 'Could not find task with given id' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Failed to task resource' });
+    });
+});
 
 module.exports = router;
