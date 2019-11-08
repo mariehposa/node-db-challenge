@@ -9,6 +9,17 @@ exports.up = function(knex) {
             .defaultTo(0)
             .notNullable()
     })
+    .createTable('resource', table => {
+        table.increments('id')
+        table.integer('project_id')
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('project')
+        table.string('resource_name', 128)
+            .unique()
+        table.string('description')
+    })
 };
 
 exports.down = function(knex) {
