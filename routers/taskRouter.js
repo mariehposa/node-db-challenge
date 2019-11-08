@@ -9,9 +9,21 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(404).json({
-            message: "Couldn't fetch" + err.message
+            message: "Couldn't fetch tasks" + err.message
         })
     })
+})
+
+router.post('/', (req, res) => {
+    const newData = req.body;
+
+    db.addProject(newData)
+    .then(newTask => {
+        res.status(201).json(newTask)
+    })
+    .catch (err => {
+        res.status(500).json({ message: 'Failed to create new task' + err.message });
+    });
 })
 
 module.exports = router;
