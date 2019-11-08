@@ -21,7 +21,7 @@ function getProject () {
 
 function getProjectId (id) {
     return db('project as p')
-    .where('p.id', id)
+    .where('p.id', id).first()
 }
 
 function addProject(newProject) {
