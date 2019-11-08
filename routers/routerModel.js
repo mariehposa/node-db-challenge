@@ -19,12 +19,12 @@ function getProject () {
     return db('project')
 }
 
-// function addProject(newProject) {
-//     return db('project')
-//     .insert(newProject)
-//     .th
-//     })
-// }
+
+function addProject(newProject) {
+    return db('project')
+    .insert(newProject)
+    .then(([id]) => this.getProjectId(id))
+}
 
 function getTask () {
     return db('task')
@@ -35,5 +35,7 @@ module.exports = {
     getById,
     addResource,
     getProject,
+    addProject,
     getTask,
+
 }
