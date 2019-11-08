@@ -19,6 +19,13 @@ function getProject () {
     return db('project')
 }
 
+// function addProject(newProject) {
+//     return db('project')
+//     .insert(newProject)
+//     .th
+//     })
+// }
+
 function getTask () {
     return db('task')
 }
